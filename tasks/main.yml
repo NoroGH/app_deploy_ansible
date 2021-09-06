@@ -1,0 +1,6 @@
+---
+# tasks file for pod
+- name: Apply Deployment
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'app_deploy.j2.yaml') | from_yaml }}"

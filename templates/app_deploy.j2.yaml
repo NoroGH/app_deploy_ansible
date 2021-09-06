@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ labels.app }}
+  name: app
+  namespace: default
+spec:
+  replicas: {{ replicas }}
+  selector:
+    matchLabels:
+      app: {{ labels.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ labels.app }}
+    spec:
+      containers:
+      - image: {{ containers.nginx.image }}
+        name: {{ containers.nginx.name }}
+        ports:
+        - containerPort: {{ containers.nginx.port }}
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+      - image: {{ containers.php.image }}
+        name: {{ containers.php.name }}
+        ports:
+        - containerPort: {{ containers.php.port }}
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
